@@ -23,7 +23,7 @@ int main() {
             AccessPoint *ap = nullptr;
             ap_standard = apType;
 
-            Simulator simulator(n);
+            Simulator<User, AccessPoint> simulator(n);
             if (n > 10) isDebug = false;
             else isDebug = true;
 
