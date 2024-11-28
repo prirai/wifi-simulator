@@ -1,0 +1,7 @@
+*.o
+debug
+optimized
+log.txt
+*.a
+.idea
+CMakeLists.txt
