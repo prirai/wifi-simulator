@@ -18,9 +18,7 @@ public:
     WiFi4AccessPoint(int id, long max_concurrent_users);
 
     bool transmitPacket(Packet* packet, User* user) override;
-    long getBandwidth() override {
-        return channel.bandwidth;
-    }
+    long getBandwidth() override;
 };
 
 class WiFi5AccessPoint : public AccessPoint {
@@ -34,9 +32,7 @@ public:
     WiFi5AccessPoint(int id, long max_concurrent_users);
 
     bool transmitPacket(Packet* packet, User* user) override;
-    long getBandwidth() override {
-        return channel.bandwidth;
-    }
+    long getBandwidth() override;
 };
 
 class WiFi6AccessPoint : public AccessPoint {
@@ -50,9 +46,7 @@ public:
     WiFi6AccessPoint(int id, long max_concurrent_users);
 
     bool transmitPacket(Packet* packet, User* user) override;
-    long getBandwidth() override {
-        return channel.bandwidth;
-    }
+    long getBandwidth() override;
 };
 
 #endif // WIFI_ACCESS_POINTS_H

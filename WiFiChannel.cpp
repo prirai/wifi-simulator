@@ -27,3 +27,7 @@ void WiFiChannel::releaseChannel() {
     debugstream << "[DEBUG] WiFiChannel: Channel released." << std::endl;
     Utils::printDebug(std::move(debugstream));
 }
+
+long WiFiChannel::getBandwidth() const {
+    return bandwidth;
+}

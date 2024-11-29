@@ -13,7 +13,7 @@ bool WiFi4AccessPoint::transmitPacket(Packet *packet, User *user) {
             currentTime << "." << std::endl;
     if (channel.sniffChannel(currentTime)) {
         debugstream << "[DEBUG] WiFi4AccessPoint: Channel is free. Proceeding with transmission." << std::endl;
-        packet->calculateTransmissionTime(channel.bandwidth, log2(256), 5.0 / 6.0);
+        packet->calculateTransmissionTime(channel.getBandwidth(), log2(256), 5.0 / 6.0);
         channel.occupyChannel(packet->getTransmissionTime(), currentTime);
         channel.releaseChannel();
         Utils::printDebug(std::move(debugstream));
@@ -24,6 +24,10 @@ bool WiFi4AccessPoint::transmitPacket(Packet *packet, User *user) {
     }
     Utils::printDebug(std::move(debugstream));
     return false;
+}
+
+long WiFi4AccessPoint::getBandwidth() {
+    return channel.getBandwidth();
 }
 
 WiFi5AccessPoint::WiFi5AccessPoint(int id, long max_concurrent_users) : AccessPoint(id, max_concurrent_users),
@@ -63,7 +67,7 @@ bool WiFi5AccessPoint::transmitPacket(Packet *packet, User *user) {
     }
     if (currentTransmittingUsers.size() < maxConcurrentUsers) {
         debugstream << "[DEBUG] WiFi5AccessPoint: Channel has space. Proceeding with transmission." << std::endl;
-        packet->calculateTransmissionTime(channel.bandwidth, log2(1024), 5.0 / 6.0);
+        packet->calculateTransmissionTime(channel.getBandwidth(), log2(1024), 5.0 / 6.0);
         currentTransmittingUsers.push_back(user);
         currentTransmittingUserIds.push_back(user->getId());
         userEndTimes[user] = currentTime + packet->getTransmissionTime();
@@ -81,6 +85,10 @@ bool WiFi5AccessPoint::transmitPacket(Packet *packet, User *user) {
     }
 
     return true;
+}
+
+long WiFi5AccessPoint::getBandwidth() {
+    return channel.getBandwidth();
 }
 
 //
@@ -101,8 +109,8 @@ bool WiFi5AccessPoint::transmitPacket(Packet *packet, User *user) {
 
 WiFi6AccessPoint::WiFi6AccessPoint(int id, long max_concurrent_users) : AccessPoint(id, max_concurrent_users),
                                                                         channel(2) {
-    infostream << "Created " << std::to_string(20 / channel.bandwidth) << " bands of " <<
-            std::to_string(channel.bandwidth) << " MHz each." << std::endl;
+    infostream << "Created " << std::to_string(20 / channel.getBandwidth()) << " bands of " <<
+            std::to_string(channel.getBandwidth()) << " MHz each." << std::endl;
     Utils::printInfo(std::move(infostream));
 }
 
@@ -139,7 +147,7 @@ bool WiFi6AccessPoint::transmitPacket(Packet *packet, User *user) {
     }
     if (currentTransmittingUsers.size() < maxConcurrentUsers) {
         debugstream << "[DEBUG] WiFi6AccessPoint: Channel has space. Proceeding with transmission." << std::endl;
-        packet->calculateTransmissionTime(channel.bandwidth, log2(2048), 5.0 / 6.0);
+        packet->calculateTransmissionTime(channel.getBandwidth(), log2(2048), 5.0 / 6.0);
         currentTransmittingUsers.push_back(user);
         currentTransmittingUserIds.push_back(user->getId());
         userEndTimes[user] = currentTime + packet->getTransmissionTime();
@@ -153,4 +161,8 @@ bool WiFi6AccessPoint::transmitPacket(Packet *packet, User *user) {
     }
 
     return true;
+}
+
+long WiFi6AccessPoint::getBandwidth() {
+    return channel.getBandwidth();
 }
