@@ -70,8 +70,5 @@ public:
  * @param codingRate the coding rate of the network
  * @return the total transmission time for all users in the network
  */
-long calcTotalTransmissionTime(int usersnum, int packetsize, int bandwidth, double modulationRate, double codingRate) {
-    return static_cast<long>(
-        std::ceil((usersnum * 8.0 * packetsize) / (bandwidth * modulationRate * codingRate)));
-}
+long calcTotalTransmissionTime(int usersnum, int packetsize, int bandwidth, double modulationRate, double codingRate);
 #endif // UTILS_H
