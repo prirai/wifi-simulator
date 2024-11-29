@@ -8,8 +8,8 @@
 
 int main() {
     //if (argc == 1) {
-//        std::cout << "No args passed. Running default simulations." << std::endl;
-//    }
+    //        std::cout << "No args passed. Running default simulations." << std::endl;
+    //    }
 
     int userCounts[] = {1, 10, 100};
     int accessPointTypes[] = {4, 5, 6};
