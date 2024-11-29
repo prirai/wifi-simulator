@@ -113,6 +113,13 @@ void Simulator<UserType, AccessPointType>::computeMetrics() {
         }
         std::cerr << "Failed to open log file." << std::endl;
     }
+
+    std::time_t now = std::time(nullptr);
+    std::tm* localTime = std::localtime(&now);
+
+    logfile << std::endl << "================================" << std::endl;
+    logfile << std::put_time(localTime, "%Y-%m-%d %H:%M:%S") << std::endl;
+    logfile << "--------------------------" << std::endl;
     infostream << "WiFi" << ap_standard << std::endl;
     infostream << "Concurrent Users: " << std::min(accessPoint->getMaxConcurrentUsers(), static_cast<long>(numusers)) << std::endl;
     infostream << "User count: " << numusers << std::endl;
